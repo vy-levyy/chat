@@ -12,7 +12,7 @@ module.exports = {
         }),
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
@@ -38,5 +38,14 @@ module.exports = {
     },
     optimization: {
         runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            }
+        }
     },
 };
