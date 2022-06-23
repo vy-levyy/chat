@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "ES2021",
+            "dom"
+        ],
+        "outDir": "./dist",
+        "removeComments": true,
+        "target": "ES5",
+        "baseUrl": ".",
+        "paths": {
+            "@ui/*": ["./src/ui/*"],
+            "@components/*": ["./src/components/*"],
+            "@pages/*": ["./src/pages/*"],
+        },
+        "moduleResolution": "Node",
+        "jsx": "react",
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
+    }
+}
