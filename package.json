@@ -9,11 +9,13 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint src/**",
+    "lint:write": "eslint src/** --fix"
   },
   "license": "MIT",
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.(js|jsx|ts|tsx)": ["yarn lint:write", "git add"] 
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -24,7 +26,18 @@
   "devDependencies": {
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
     "css-loader": "^6.7.1",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.2",
