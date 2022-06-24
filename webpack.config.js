@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/index.ts',
+        index: './src/index.tsx',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -44,9 +44,10 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            "@ui": path.resolve('./src/ui/'),
-            "@components": path.resolve('./src/components/'),
-            "@pages": path.resolve('./src/pages/'),
+            "src": path.resolve('./src/'),
+            "ui": path.resolve('./src/ui/'),
+            "components": path.resolve('./src/components/'),
+            "pages": path.resolve('./src/pages/'),
         }
     },
     optimization: {
