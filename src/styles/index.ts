@@ -1,0 +1,1 @@
+export { textStyle } from './text';
