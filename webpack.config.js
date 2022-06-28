@@ -48,6 +48,10 @@ module.exports = {
       ui: path.resolve('./src/ui/'),
       components: path.resolve('./src/components/'),
       pages: path.resolve('./src/pages/'),
+      styles: path.resolve('./src/styles/'),
+      api: path.resolve('./src/api/'),
+      models: path.resolve('./src/models/'),
+      store: path.resolve('./src/store/'),
     },
   },
   optimization: {
