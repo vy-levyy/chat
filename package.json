@@ -10,22 +10,32 @@
     "build": "webpack",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "lint": "eslint src/**",
-    "lint:write": "eslint src/** --fix"
+    "lint": "eslint .",
+    "lint:write": "eslint . --fix"
   },
   "license": "MIT",
   "lint-staged": {
-    "*.(js|jsx|ts|tsx)": ["yarn lint:write", "git add"] 
+    "*.(js|jsx|ts|tsx)": [
+      "yarn lint:write",
+      "git add"
+    ]
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
+    "styled-components": "^5.3.5",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@types/react-redux": "^7.1.24",
+    "@types/redux": "^3.6.0",
+    "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "css-loader": "^6.7.1",
