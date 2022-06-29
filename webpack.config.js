@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -52,6 +53,8 @@ module.exports = {
       api: path.resolve('./src/api/'),
       models: path.resolve('./src/models/'),
       store: path.resolve('./src/store/'),
+      services: path.resolve('./src/services/'),
+      actions: path.resolve('./src/actions/'),
     },
   },
   optimization: {

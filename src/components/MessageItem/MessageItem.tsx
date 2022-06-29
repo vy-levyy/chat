@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IMessage } from 'models/message';
+import { IMessage } from 'models';
 import { textStyle } from 'styles';
 import styled, { css } from 'styled-components';
 

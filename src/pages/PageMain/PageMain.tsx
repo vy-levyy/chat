@@ -4,8 +4,6 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Page } from '../shared/Page';
 
-type Props = {};
-
 const FormLoginContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -26,7 +24,7 @@ const ChatContainer = styled.div`
   padding: 20px 20px;
 `;
 
-export const PageMain: FC<Props> = () => {
+export const PageMain: FC = () => {
   const [, { user }] = useLoginMutation({
     fixedCacheKey: LOGIN_CACHE_KEY,
     selectFromResult: (state) => ({

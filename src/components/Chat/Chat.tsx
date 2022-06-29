@@ -1,9 +1,17 @@
+import { sendMessage as sendMessageThunk } from 'actions';
+import {
+  LOGIN_CACHE_KEY,
+  messagesInitialState,
+  messagesSelectors,
+  useGetMessagesQuery,
+  useLoginMutation,
+} from 'api';
 import { MessageItem } from 'components';
-import { IMessage } from 'models/message';
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { CHANNEL_ID } from 'src/consts';
+import { useAppDispatch } from 'store';
 import styled from 'styled-components';
 import { Button, Input, Paper } from 'ui';
-import { getUserMessageMock, messagesMock } from './mock';
 
 const Container = styled.div`
   width: 100%;
@@ -62,21 +70,47 @@ const CustomButtom = styled(Button)`
 `;
 
 export const Chat = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const messageAnchorDivRef = useRef<HTMLDivElement>(null);
-  const [text, setText] = useState<string>('');
-  const [messages, setMessages] = useState<IMessage[]>(messagesMock);
+  const dispatch = useAppDispatch();
 
-  const messagesComs = messages.map((message) => (
-    <MessageItem key={message.id} message={message} />
-  ));
+  const inputRef = useRef<HTMLInputElement>(null);
+  const messagesAnchorDivRef = useRef<HTMLDivElement>(null);
+
+  const [text, setText] = useState<string>('');
+
+  const {
+    data: entityMessages = messagesInitialState,
+    isLoading,
+    isUninitialized,
+  } = useGetMessagesQuery(CHANNEL_ID);
+
+  const messages = messagesSelectors.selectAll(entityMessages);
+
+  const initialMessagesLoaded = !isUninitialized && !isLoading;
+
+  const messagesElements = useMemo(
+    () => messages.map((message) => <MessageItem key={message.id} message={message} />),
+    [messages],
+  );
+
+  const [, { user }] = useLoginMutation({
+    fixedCacheKey: LOGIN_CACHE_KEY,
+    selectFromResult: (state) => ({
+      user: state.data,
+    }),
+  });
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
   useEffect(() => {
-    messageAnchorDivRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (initialMessagesLoaded) {
+      messagesAnchorDivRef.current?.scrollIntoView({ behavior: 'auto' });
+    }
+  }, [initialMessagesLoaded]);
+
+  useEffect(() => {
+    messagesAnchorDivRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const onTextChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -84,11 +118,12 @@ export const Chat = () => {
   };
 
   const sendMessage = () => {
-    if (!text) {
+    if (!text || !user) {
       return;
     }
 
-    setMessages((prev) => [...prev, getUserMessageMock(text)]);
+    dispatch(sendMessageThunk({ userId: user.id, message: text }));
+
     setText('');
     inputRef.current?.focus();
   };
@@ -108,8 +143,8 @@ export const Chat = () => {
       <CustomPaper>
         <Header />
         <Body>
-          {messagesComs}
-          <div ref={messageAnchorDivRef} />
+          {messagesElements}
+          <div ref={messagesAnchorDivRef} />
         </Body>
         <Footer>
           <CustomInput
